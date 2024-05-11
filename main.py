@@ -1,4 +1,6 @@
-menu = """
+"""Challenge: Creating a banking system"""
+
+MENU = """
 
 [d] Deposit
 [w] Withdraw
@@ -8,14 +10,14 @@ menu = """
 => """
 
 balance = 0.00
-limit = 500
+LIMIT = 500
 bank_statement = ""
 withdraw_count = 0
 WITHDRAW_COUNT_LIMIT = 3
 
 while True:
 
-    option = input(menu)
+    option = input(MENU)
 
     if option == "d":
         amount = float(input("Insert the amount to deposit: "))
@@ -34,7 +36,7 @@ while True:
 
         exceeded_balance = amount > balance
 
-        exceeded_limit = amount > limit
+        exceeded_limit = amount > LIMIT
 
         exceeded_withdrawals = withdraw_count >= WITHDRAW_COUNT_LIMIT
 
