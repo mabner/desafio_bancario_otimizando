@@ -4,25 +4,25 @@
 def menu():
     pass
 
-def deposit():
+def deposit(balance, amount, bank_statement, /):
     pass
 
-def withdraw():
+def withdraw(*, balance, amount, bank_statement, limit, withdraw_count, withdraw_count_limit):
     pass
 
-def show_bank_statement():
+def show_bank_statement(balance, /, *, bank_statement):
     pass
 
-def create_user():
+def create_user(users):
     pass
 
-def list_user():
+def list_user(cpf, users):
     pass
 
-def create_account():
+def create_account(branch, account_number, users):
     pass
 
-def list_accounts():
+def list_accounts(accounts):
     pass
 
 def main():
