@@ -1,5 +1,34 @@
 """Challenge: Creating a banking system"""
 
+
+def menu():
+    pass
+
+def deposit():
+    pass
+
+def withdraw():
+    pass
+
+def show_bank_statement():
+    pass
+
+def create_user():
+    pass
+
+def list_user():
+    pass
+
+def create_account():
+    pass
+
+def list_accounts():
+    pass
+
+def main():
+    pass
+
+
 MENU = """
 
 [d] Deposit
