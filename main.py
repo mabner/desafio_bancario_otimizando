@@ -15,7 +15,15 @@ def menu():
 
 
 def deposit(balance, amount, bank_statement, /):
-    pass
+    if amount > 0:
+        balance += amount
+        # adds transaction to bank statement
+        bank_statement += f"Deposit: R$ {amount:.2f}\n"
+    else:
+        print("Operation failed! Invalid amount.")
+
+    return balance, bank_statement
+            
 
 def withdraw(*, balance, amount, bank_statement, limit, withdraw_count, withdraw_count_limit):
     pass
@@ -51,15 +59,8 @@ def main():
         if option == "d":
             amount = float(input("Insert the amount to deposit: "))
 
-            if amount > 0:
-                balance += amount
-
-                # adds transaction to bank statement
-                bank_statement += f"Deposit: R$ {amount:.2f}\n"
-
-            else:
-                print("Operation failed! Invalid amount.")
-
+            balance, bank_statement = deposit(balance, amount, bank_statement)
+           
         elif option == "w":
             amount = float(input("Inform the amount to withdraw: "))
 
