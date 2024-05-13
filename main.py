@@ -1,8 +1,18 @@
 """Challenge: Creating a banking system"""
 
-
 def menu():
-    pass
+    menu = """
+    ========== Choose an option ==========
+    [d] Deposit
+    [w] Withdraw
+    [s] Bank Statement
+    [n] New account
+    [a] List accounts
+    [u] New user 
+    [c] Close
+    => """
+    return input(menu)
+
 
 def deposit(balance, amount, bank_statement, /):
     pass
@@ -26,77 +36,70 @@ def list_accounts(accounts):
     pass
 
 def main():
-    pass
+    WITHDRAW_COUNT_LIMIT = 3
+    balance = 0.00
+    LIMIT = 500
+    bank_statement = ""
+    withdraw_count = 0
+    users = []
+    accounts = []
 
+    while True:
 
-MENU = """
+        option = menu()
 
-[d] Deposit
-[w] Withdraw
-[s] Bank Statement
-[c] Close
+        if option == "d":
+            amount = float(input("Insert the amount to deposit: "))
 
-=> """
+            if amount > 0:
+                balance += amount
 
-balance = 0.00
-LIMIT = 500
-bank_statement = ""
-withdraw_count = 0
-WITHDRAW_COUNT_LIMIT = 3
+                # adds transaction to bank statement
+                bank_statement += f"Deposit: R$ {amount:.2f}\n"
 
-while True:
+            else:
+                print("Operation failed! Invalid amount.")
 
-    option = input(MENU)
+        elif option == "w":
+            amount = float(input("Inform the amount to withdraw: "))
 
-    if option == "d":
-        amount = float(input("Insert the amount to deposit: "))
+            exceeded_balance = amount > balance
 
-        if amount > 0:
-            balance += amount
+            exceeded_limit = amount > LIMIT
 
-            # adds transaction to bank statement
-            bank_statement += f"Deposit: R$ {amount:.2f}\n"
+            exceeded_withdrawals = withdraw_count >= WITHDRAW_COUNT_LIMIT
+
+            if exceeded_balance:
+                print("Operation failed! Not enough balance.")
+
+            elif exceeded_limit:
+                print("Operation failed! Withdraw amount exceeds the limit.")
+
+            elif exceeded_withdrawals:
+                print("Operation failed! Daily withdrawals exceeded.")
+
+            elif amount > 0:
+                balance -= amount
+
+                # adds transaction to bank statement
+                bank_statement += f"Withdraw: R$ {amount:.2f}\n"
+
+                withdraw_count += 1
+
+            else:
+                print("Operation failed! Invalid amount.")
+
+        elif option == "s":
+            print("\n================ BANK STATEMENT ================")
+            print("No transactions found." if not bank_statement else bank_statement)
+            print(f"\nBalance: R$ {balance:.2f}")
+            print("==================================================")
+
+        elif option == "c":
+            break
 
         else:
-            print("Operation failed! Invalid amount.")
+            print("Please select a valid option.")
 
-    elif option == "w":
-        amount = float(input("Inform the amount to withdraw: "))
 
-        exceeded_balance = amount > balance
-
-        exceeded_limit = amount > LIMIT
-
-        exceeded_withdrawals = withdraw_count >= WITHDRAW_COUNT_LIMIT
-
-        if exceeded_balance:
-            print("Operation failed! Not enough balance.")
-
-        elif exceeded_limit:
-            print("Operation failed! Withdraw amount exceeds the limit.")
-
-        elif exceeded_withdrawals:
-            print("Operation failed! Daily withdrawals exceeded.")
-
-        elif amount > 0:
-            balance -= amount
-
-            # adds transaction to bank statement
-            bank_statement += f"Withdraw: R$ {amount:.2f}\n"
-
-            withdraw_count += 1
-
-        else:
-            print("Operation failed! Invalid amount.")
-
-    elif option == "s":
-        print("\n================ BANK STATEMENT ================")
-        print("No transactions found." if not bank_statement else bank_statement)
-        print(f"\nBalance: R$ {balance:.2f}")
-        print("==================================================")
-
-    elif option == "c":
-        break
-
-    else:
-        print("Please select a valid option.")
+main()
