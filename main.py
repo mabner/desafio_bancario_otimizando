@@ -1,5 +1,6 @@
 """Challenge: Creating a banking system"""
 
+
 def menu():
     menu = """
     ========== Choose an option ==========
@@ -23,25 +24,31 @@ def deposit(balance, amount, bank_statement, /):
         print("Operation failed! Invalid amount.")
 
     return balance, bank_statement
-            
+
 
 def withdraw(*, balance, amount, bank_statement, limit, withdraw_count, withdraw_count_limit):
     pass
 
+
 def show_bank_statement(balance, /, *, bank_statement):
     pass
+
 
 def create_user(users):
     pass
 
+
 def list_user(cpf, users):
     pass
+
 
 def create_account(branch, account_number, users):
     pass
 
+
 def list_accounts(accounts):
     pass
+
 
 def main():
     WITHDRAW_COUNT_LIMIT = 3
@@ -60,7 +67,7 @@ def main():
             amount = float(input("Insert the amount to deposit: "))
 
             balance, bank_statement = deposit(balance, amount, bank_statement)
-           
+
         elif option == "w":
             amount = float(input("Inform the amount to withdraw: "))
 
