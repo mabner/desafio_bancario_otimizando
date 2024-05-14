@@ -63,7 +63,10 @@ def withdraw(*, balance, amount, bank_statement, limit, withdraw_count, withdraw
 
 
 def show_bank_statement(balance, /, *, bank_statement):
-    pass
+    print("\n================ BANK STATEMENT ================")
+    print("No transactions found." if not bank_statement else bank_statement)
+    print(f"\nBalance: R$ {balance:.2f}")
+    print("==================================================")
 
 
 def create_user(users):
@@ -113,10 +116,7 @@ def main():
             )
 
         elif option == "s":
-            print("\n================ BANK STATEMENT ================")
-            print("No transactions found." if not bank_statement else bank_statement)
-            print(f"\nBalance: R$ {balance:.2f}")
-            print("==================================================")
+            show_bank_statement(balance, bank_statement=bank_statement)
 
         elif option == "c":
             break
