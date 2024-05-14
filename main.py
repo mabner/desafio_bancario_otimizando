@@ -99,13 +99,21 @@ def create_account(branch, account_number, users):
 
     if user:
         print("Account created with success.")
+        # user key to make sure an account only has one user
         return {"branch": branch, "account_number": account_number, "user": user}
-    
+
     print(f"User with CPF {cpf} not found.")
 
 
 def list_accounts(accounts):
-    pass
+    for account in accounts:
+        line = f"""
+            Branch: {account['branch']}
+            Account: {account['account_number']}
+            Account holder: {account['user']['name']}
+        """
+
+        print(line)
 
 
 def main():
