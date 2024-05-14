@@ -70,7 +70,7 @@ def show_bank_statement(balance, /, *, bank_statement):
 
 
 def create_user(users):
-    cpf = input("Please inform you CPF *numbers only*: ")
+    cpf = input("Please type you CPF *numbers only*: ")
     user = find_user(cpf, users)
 
     if user:  # if user exists, error message, if not, continue
@@ -94,7 +94,14 @@ def find_user(cpf, users):
 
 
 def create_account(branch, account_number, users):
-    pass
+    cpf = input("Please type the user CPF: ")
+    user = find_user(cpf, users)
+
+    if user:
+        print("Account created with success.")
+        return {"branch": branch, "account_number": account_number, "user": user}
+    
+    print(f"User with CPF {cpf} not found.")
 
 
 def list_accounts(accounts):
@@ -103,8 +110,10 @@ def list_accounts(accounts):
 
 def main():
     WITHDRAW_COUNT_LIMIT = 3
-    balance = 0.00
     LIMIT = 500
+    BRANCH = "0001"
+
+    balance = 0.00
     bank_statement = ""
     withdraw_count = 0
     users = []
@@ -137,11 +146,15 @@ def main():
         elif option == "u":
             create_user(users)
 
-        elif option == "n":  # [n] New account
-            pass
+        elif option == "n":
+            account_number = len(accounts) + 1
+            account = create_account(BRANCH, account_number, users)
 
-        elif option == "a":  # [a] List accounts
-            pass
+            if account:
+                accounts.append(account)
+
+        elif option == "a":
+            list_accounts(accounts)
 
         elif option == "c":
             break
