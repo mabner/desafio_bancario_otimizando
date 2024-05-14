@@ -20,6 +20,7 @@ def deposit(balance, amount, bank_statement, /):
         balance += amount
         # adds transaction to bank statement
         bank_statement += f"Deposit: R$ {amount:.2f}\n"
+        print(f"Deposit successful. Your new balance is R$ {balance}")
     else:
         print("Operation failed! Invalid amount.")
 
