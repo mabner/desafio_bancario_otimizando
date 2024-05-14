@@ -7,9 +7,9 @@ def menu():
     [d] Deposit
     [w] Withdraw
     [s] Bank Statement
+    [u] New user 
     [n] New account
     [a] List accounts
-    [u] New user 
     [c] Close
     => """
     return input(menu)
@@ -70,11 +70,27 @@ def show_bank_statement(balance, /, *, bank_statement):
 
 
 def create_user(users):
-    pass
+    cpf = input("Please inform you CPF *numbers only*: ")
+    user = find_user(cpf, users)
+
+    if user:  # if user exists, error message, if not, continue
+        print("CPF already in use.")
+        return
+
+    name = input("Please type yor full name: ")
+    birth_date = input("Please type your date of birth *dd-mm-yyyy*: ")
+    address = input(
+        "Please type your full address *street, house n° - borough - city/state*: ")
+
+    users.append({"name": name, "birth_date": birth_date,
+                 "cpf": cpf, "address": address})
+
+    print(f"User '{name}' create with success.")
 
 
-def list_user(cpf, users):
-    pass
+def find_user(cpf, users):
+    users_found = [user for user in users if user["cpf"] == cpf]
+    return users_found[0] if users_found else None
 
 
 def create_account(branch, account_number, users):
@@ -117,6 +133,15 @@ def main():
 
         elif option == "s":
             show_bank_statement(balance, bank_statement=bank_statement)
+
+        elif option == "u":
+            create_user(users)
+
+        elif option == "n":  # [n] New account
+            pass
+
+        elif option == "a":  # [a] List accounts
+            pass
 
         elif option == "c":
             break
