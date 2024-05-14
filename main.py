@@ -14,21 +14,52 @@ def menu():
     => """
     return input(menu)
 
+# positional only parameters
+
 
 def deposit(balance, amount, bank_statement, /):
     if amount > 0:
         balance += amount
         # adds transaction to bank statement
         bank_statement += f"Deposit: R$ {amount:.2f}\n"
-        print(f"Deposit successful. Your new balance is R$ {balance}")
+        print(f"Deposit successful. Your new balance is R$ {balance:.2f}")
     else:
         print("Operation failed! Invalid amount.")
 
     return balance, bank_statement
 
+# keyword only parameters
+
 
 def withdraw(*, balance, amount, bank_statement, limit, withdraw_count, withdraw_count_limit):
-    pass
+    exceeded_balance = amount > balance
+
+    exceeded_limit = amount > limit
+
+    exceeded_withdrawals = withdraw_count >= withdraw_count_limit
+
+    if exceeded_balance:
+        print("Operation failed! Not enough balance.")
+
+    elif exceeded_limit:
+        print("Operation failed! Withdraw amount exceeds the limit.")
+
+    elif exceeded_withdrawals:
+        print("Operation failed! Daily withdrawals exceeded.")
+
+    elif amount > 0:
+        balance -= amount
+
+        # adds transaction to bank statement
+        bank_statement += f"Withdraw: R$ {amount:.2f}\n"
+        withdraw_count += 1
+        print(f"You have successfully withdrawn R$ {
+              amount:.2f} from your account.")
+
+    else:
+        print("Operation failed! Invalid amount.")
+
+    return balance, bank_statement
 
 
 def show_bank_statement(balance, /, *, bank_statement):
@@ -72,31 +103,14 @@ def main():
         elif option == "w":
             amount = float(input("Inform the amount to withdraw: "))
 
-            exceeded_balance = amount > balance
-
-            exceeded_limit = amount > LIMIT
-
-            exceeded_withdrawals = withdraw_count >= WITHDRAW_COUNT_LIMIT
-
-            if exceeded_balance:
-                print("Operation failed! Not enough balance.")
-
-            elif exceeded_limit:
-                print("Operation failed! Withdraw amount exceeds the limit.")
-
-            elif exceeded_withdrawals:
-                print("Operation failed! Daily withdrawals exceeded.")
-
-            elif amount > 0:
-                balance -= amount
-
-                # adds transaction to bank statement
-                bank_statement += f"Withdraw: R$ {amount:.2f}\n"
-
-                withdraw_count += 1
-
-            else:
-                print("Operation failed! Invalid amount.")
+            balance, bank_statement = withdraw(
+                balance=balance,
+                amount=amount,
+                bank_statement=bank_statement,
+                limit=LIMIT,
+                withdraw_count=withdraw_count,
+                withdraw_count_limit=WITHDRAW_COUNT_LIMIT,
+            )
 
         elif option == "s":
             print("\n================ BANK STATEMENT ================")
