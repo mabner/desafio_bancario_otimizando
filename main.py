@@ -53,8 +53,8 @@ def withdraw(*, balance, amount, bank_statement, limit, withdraw_count, withdraw
         # adds transaction to bank statement
         bank_statement += f"Withdraw: R$ {amount:.2f}\n"
         withdraw_count += 1
-        print(f"You have successfully withdrawn R$ {
-              amount:.2f} from your account.")
+        print(
+            f"You have successfully withdrawn R$ {amount:.2f} from your account.")
 
     else:
         print("Operation failed! Invalid amount.")
